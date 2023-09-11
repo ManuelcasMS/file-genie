@@ -4,6 +4,9 @@
 
 *.njsproj
 *.njsproj.user
+
+dist/
+
 # Logs
 logs
 *.log
