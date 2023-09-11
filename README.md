@@ -1,2 +1,0 @@
-# file-genie
-File Genie
