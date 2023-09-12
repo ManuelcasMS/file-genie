@@ -5,6 +5,7 @@ import * as path from 'path';
 import routes from './routes/index';
 import users from './routes/user';
 import storage from './routes/storage';
+import query from './routes/query';
 
 const debug = require('debug')('my express app');
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/storage', storage);
+app.use('/query', query);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
