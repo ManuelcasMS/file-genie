@@ -17,8 +17,10 @@
   "main": "app.js",
   "dependencies": {
     "@azure/openai": "^1.0.0-beta.5",
+    "@azure/search-documents": "^11.3.2",
     "@azure/storage-blob": "^12.15.0",
     "debug": "^2.2.0",
+    "dotenv": "^16.3.1",
     "express": "^4.14.0",
     "pug": "^2.0.0-rc.3"
   },

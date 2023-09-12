@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import routes from './routes/index';
 import users from './routes/user';
-import storage from './routes/storage';
+import upload from './routes/storage';
 
 const debug = require('debug')('my express app');
 const app = express();
@@ -17,12 +17,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/storage', storage);
+app.use('/storage', upload);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
     const err = new Error('Not Found');
-    err[ 'status' ] = 404;
+    err['status'] = 404;
     next(err);
 });
 
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use((err, req, res, next) => { // eslint-disable-line @typescript-eslint/no-unused-vars
-        res.status(err[ 'status' ] || 500);
+        res.status(err['status'] || 500);
         res.render('error', {
             message: err.message,
             error: err
