@@ -18,5 +18,20 @@ export default class BlobStorage {
         const blobClient = containerClient.getBlockBlobClient(blobName);
         const uploadResponse = await blobClient.upload(blobContent, blobContent.length);
         
-    } 
+    }
+
+    getBlobNamesFromContainer = async (containerName: string) => {
+        const containerClient = this.blobServiceClient.getContainerClient(containerName);
+
+        if(!await containerClient.exists()){
+            return [];
+        }
+
+        const result: string[] = []
+        for await (const blob of containerClient.listBlobsFlat()) {
+            result.push(blob.name);
+        }
+
+        return result;
+    }
 }

@@ -5,6 +5,7 @@ import './App.css'
 import 'react-chat-elements/dist/main.css'
 import styles from "./styles/chat.module.scss";
 import { MessageList, Input, Button, MessageType } from 'react-chat-elements'
+import { API_HOST_URL } from './util/constants';
 function App() {  
   const messageListReferance = React.createRef();  
   const inputReferance = React.createRef()
@@ -37,37 +38,43 @@ function App() {
   }
   return (
     <>
-    <div className={styles.chatBox}>
-      
-      {
-        <>    
-        <div className={styles.chatHistory}>    
-          {
-            <MessageList
-              referance={messageListReferance}      
-              lockable={true}
-              toBottomHeight={'100%'}      
-              dataSource={chatHistory}
-            />
-          }
+      <div style={{display: 'flex'}}>
+        <div className={styles.chatBox}>
+          <div className={styles.chatHistory}>    
+            {
+              <MessageList
+                referance={messageListReferance}      
+                lockable={true}
+                toBottomHeight={'100%'}
+                dataSource={chatHistory}
+              />
+            }
+          </div>
+          <Input
+            inputStyle={{ color: 'black', backgroundColor: 'white', borderStyle: 'inset', borderWidth: '2px' }}
+            referance={inputReferance}
+            placeholder='Type here...'
+            className={styles.chatInput}
+            maxHeight={100}
+            multiline={true}
+            clear={() => { }}
+            value={inputMessage}
+            rightButtons={<Button color='white' backgroundColor='black' text='Send' onClick={addMessage} />}
+            onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setInputMessage(e.target.value)}
+          />
         </div>
-     <Input
-        inputStyle={{ color: 'black', backgroundColor: 'white', borderStyle: 'inset', borderWidth: '2px' }}
-        referance={inputReferance}
-        placeholder='Type here...'
-        className={styles.chatInput}
-        maxHeight={100}
-        multiline={true}
-        clear={() => { }}
-        value={inputMessage}
-        rightButtons={<Button color='white' backgroundColor='black' text='Send' onClick={addMessage} />}
-        onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setInputMessage(e.target.value)}
-
-        
-      />
-     </>
-      }
-      </div>   
+        <div>
+          <form
+            action={`${API_HOST_URL}/upload`}
+            encType='multipart/form-data'
+            method='post'
+          >
+            <input type='file' name='uploaded_files' multiple></input>
+            <button type='submit'>upload</button>
+          </form>
+        </div>
+      </div>
+      
     </>
   )
 }
