@@ -11,7 +11,7 @@ export default class BlobStorage {
     persistBlob = async (containerName: string, blobName: string, blobContent: string) => {
         const containerClient = this.blobServiceClient.getContainerClient(containerName);
 
-        if(!containerClient.exists()){
+        if(!await containerClient.exists()){
             containerClient.create();
         }
 
