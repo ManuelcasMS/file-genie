@@ -11,4 +11,10 @@ router.post('/', async (req: express.Request, res: express.Response) => {
     res.send("posting resource");
 });
 
+router.get('/container/:containerName/blobs', async (req: express.Request, res: express.Response) => {
+    const containerName = req.params.containerName;
+    const blobs = await blobStorage.getBlobNamesFromContainer(containerName);
+    res.send(blobs);
+})
+
 export default router;
