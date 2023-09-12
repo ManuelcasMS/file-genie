@@ -61,7 +61,7 @@ function App() {
         clear={() => { }}
         value={inputMessage}
         rightButtons={<Button color='white' backgroundColor='black' text='Send' onClick={addMessage} />}
-        onChange={(e: { target: { value: React.SetStateAction<undefined>; }; }) => setInputMessage(e.target.value)}
+        onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setInputMessage(e.target.value)}
 
         
       />
