@@ -8,7 +8,7 @@ const router = express.Router();
 const blobStorage = new BlobStorage();
 
 router.post('/', (req: express.Request, res: express.Response) => {
-    blobStorage.persistBlob("test", "test", "test");
+    blobStorage.persistBlob("file-genie", "test", "test");
     res.send("posting resource");
 });
 
