@@ -38,7 +38,7 @@ function App() {
         text: botResponse,
         date: new Date(),
         id: 0,
-        title: "User",
+        title: "Bot",
         avatar: 'https://th.bing.com/th/id/R.87de1438c5c5f2c1e462d3305df60b01?rik=yi%2f%2beMTAn%2fFzQg&pid=ImgRaw&r=0',
         focus: false,
         titleColor: 'Black',
