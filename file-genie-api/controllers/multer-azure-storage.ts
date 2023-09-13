@@ -24,10 +24,10 @@ export default class MulterAzureStorage implements StorageEngine{
             containerClient.create();
         }
 
-        const blobClient = containerClient.getBlockBlobClient(req.params.blobName);
+        const blobClient = containerClient.getBlockBlobClient(file.originalname);
         const uploadResponse = await blobClient.uploadStream(file.stream);
         await runIndexer();
-        callback({ok: true, file: file.filename,})
+        callback({ok: true, file: file.originalname})
     }
 
     _removeFile = async (
