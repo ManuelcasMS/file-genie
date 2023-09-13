@@ -6,7 +6,6 @@ import 'react-chat-elements/dist/main.css'
 import styles from "./styles/chat.module.scss";
 import { MessageList, Input, Button, MessageType } from 'react-chat-elements'
 import FileUpload from './FileUpload';
-import { API_HOST_URL } from './util/constants';
 
 interface ChatInfo {
   content: string;
@@ -145,14 +144,6 @@ function App() {
           </div>
         </div>
         <div className={styles.docUpload}>
-           {/* <form
-            action={`${API_HOST_URL}/storage/container/file-genie/upload`}
-            encType='multipart/form-data'
-            method='post'
-          >
-            <input type='file' name='uploaded_files1' multiple></input>
-            <button type='submit'>upload</button>
-          </form> */}
           <FileUpload />
           <div className={styles.uploadedFiles}>
             <h3>Uploaded Files</h3>

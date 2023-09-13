@@ -10,27 +10,23 @@ export default function FileUpload() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [files, setFiles] = useState<File[]>([]);
   const handleChange = (file: File[]) => {
-    setFiles(file);
-    console.log(file);
+    setFiles([...file]);
   };
-
   
-   const uploadFile = async () =>  {
+  const uploadFile = async () =>  {
     const formData  = new FormData();
-    const input_file = document.querySelector('input[type="file"]')
-
-    Array.from(input_file?.files).forEach((f: any) => {
-        formData.append('blob', f)
-    })
+    if(files.length)
+    {
+      for(const f of files){
+        formData.append('uploaded_files', f)
+      }
+    }
         
-    const response = await fetch(`${API_HOST_URL}/storage/container/file-genie/upload`, {
+    await fetch(`${API_HOST_URL}/storage/container/myfile/upload`, {
       method: 'POST',
       body: formData
     });
-
-    console.log(response);
   }
-
 
   return (
     <div className={styles.upload}>
@@ -40,6 +36,7 @@ export default function FileUpload() {
         handleChange={handleChange}
         name="uploaded_files"
         types={fileTypes}
+        classes="target"
       />
         <button onClick={uploadFile}>Upload</button>
     </div>
