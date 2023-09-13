@@ -1,6 +1,7 @@
 
 import { BlobServiceClient } from '@azure/storage-blob';
 import { DefaultAzureCredential } from '@azure/identity';
+import { Readable } from 'stream';
 
 export default class BlobStorage {
     private blobServiceClient = new BlobServiceClient(
@@ -9,16 +10,19 @@ export default class BlobStorage {
     );
 
     persistBlob = async (containerName: string, blobName: string, blobContent: string) => {
-        console.log(this.blobServiceClient)
-        const containerClient = this.blobServiceClient.getContainerClient(containerName);
-
-        if(!await containerClient.exists()){
-            containerClient.create();
-        }
-
-        const blobClient = containerClient.getBlockBlobClient(blobName);
-        const uploadResponse = await blobClient.upload(blobContent, blobContent.length);
         
+        const blobClient = await this.getBlobClient(containerName, blobName);
+        const uploadResponse = await blobClient.upload(blobContent, blobContent.length);
+    }
+
+    persistBlobFromStream = async (containerName: string, blobName: string, blobContent: Readable) => {
+        const blobClient = await this.getBlobClient(containerName, blobName);
+        return await blobClient.uploadStream(blobContent);
+    }
+
+    deleteBlobFromContainer = async (containerName: string, blobName: string) => {
+        const blobClient = await this.getBlobClient(containerName, blobName);
+        return await blobClient.deleteIfExists();
     }
 
     getBlobNamesFromContainer = async (containerName: string) => {
@@ -34,5 +38,15 @@ export default class BlobStorage {
         }
 
         return result;
+    }
+
+    private getBlobClient = async (containerName: string, blobName: string) => {
+        const containerClient = this.blobServiceClient.getContainerClient(containerName);
+
+        if(!await containerClient.exists()){
+            containerClient.create();
+        }
+
+        return containerClient.getBlockBlobClient(blobName);
     }
 }
