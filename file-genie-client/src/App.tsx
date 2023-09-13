@@ -5,7 +5,7 @@ import './App.css'
 import 'react-chat-elements/dist/main.css'
 import styles from "./styles/chat.module.scss";
 import { MessageList, Input, Button, MessageType } from 'react-chat-elements'
-import { API_HOST_URL } from './util/constants';
+import FileUpload from './FileUpload';
 
 interface ChatInfo {
   content: string;
@@ -19,7 +19,7 @@ function App() {
   const [chatInfoHistory, setchatInfoHistory] = React.useState<ChatInfo[]>([]);
  
   const sendQuestionToBot = async () => {
-    fetch('https://web-app-file-genie-backend.azurewebsites.net/users', {
+    fetch('https://web-app-file-genie-backend.azurewebsites.net/query', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -89,8 +89,7 @@ function App() {
 
   }
   return (
-    <>
-      <div style={{display: 'flex'}}>
+      <>
         <div className={styles.chatBox}>
           <div className={styles.chatHistory}>    
             <div className={styles.chatHistoryContainer}>
@@ -119,19 +118,18 @@ function App() {
           />
           </div>
         </div>
-        <div>
-          <form
+        <div className={styles.docUpload}>
+          {/* <form
             action={`${API_HOST_URL}/upload`}
             encType='multipart/form-data'
             method='post'
           >
             <input type='file' name='uploaded_files' multiple></input>
             <button type='submit'>upload</button>
-          </form>
+          </form> */}
+          <FileUpload />
         </div>
-      </div>
-      
-    </>
+      </>
   )
 }
 

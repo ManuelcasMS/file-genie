@@ -9,53 +9,38 @@
   
 }
 
-.chatHistory{
+.chatHistory {
   height: 90%;
   max-height: 90%;
   width: 100%;
   flex-direction: column-reverse;
-  -webkit-box-shadow: 0 0 1px 3px #000 inset;
-  -moz-box-shadow: 0 0 1px 3px #000 inset;
-  box-shadow: 0 0 1px 3px #000 inset;
-  border-radius: 15px;
-  padding-top: 15px;
 }
 
-.wrapper{
+.wrapper {
   height: 100% !important;
   width: 100% !important;
   position: relative;
 }
 
 .chatBox {
-  background-color: white;
-  height: 80vh;
-  width: 50vw;
-  border: 2px solid #000;
-  border-radius: 15px;
+  background-color: transparent;
+  min-width: 50vw;
+  border: 2px solid #5f5f5f;
+  border-radius: 4px;
   -moz-border-radius: 15px;
   padding: 2rem 2rem 2rem 2rem;
-  position: relative;
-  float:left;
 }
 
 .chatInput {
-  background: none !important;
-  color: #ffffff !important;
-  position: absolute; 
-  bottom: 0;
-  margin: 10px 50px 10px 0px !important;
-  padding: 0px 50px 0px 0px !important;
-  padding-left: 30px;
+  color: #c5c3c3 !important;
   align-items: center;
-  width: 70% !important;
-
+  width: 100% !important;
+  margin-right: 50px;
 }
 
-.chatInputContainer{
-  margin-top: 25px;
+.docUpload {
+  flex-grow: 1;
 }
-
 
 /// Scrollbar: 
 ::-webkit-scrollbar {
