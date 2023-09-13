@@ -2,10 +2,17 @@
   color: black !important;
 }
 
+.chatHistoryContainer{
+  height: 95%;
+  width: 99%;  
+  overflow-y: auto;
+  
+}
+
 .chatHistory {
   height: 90%;
+  max-height: 90%;
   width: 100%;
-  overflow-y: auto;
   flex-direction: column-reverse;
 }
 
@@ -33,4 +40,17 @@
 
 .docUpload {
   flex-grow: 1;
+}
+
+/// Scrollbar: 
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 20px;
+  border: transparent;
 }

@@ -92,27 +92,31 @@ function App() {
       <>
         <div className={styles.chatBox}>
           <div className={styles.chatHistory}>    
-            {
-              <MessageList
-                referance={messageListReferance}      
-                lockable={true}
-                toBottomHeight={'100%'}
-                dataSource={chatHistory}
-              />
-            }
+            <div className={styles.chatHistoryContainer}>
+              {
+                <MessageList
+                  referance={messageListReferance}      
+                  lockable={true}
+                  toBottomHeight={'100%'}
+                  dataSource={chatHistory}
+                />
+              }
+            </div>
           </div>
+          <div className={styles.chatInputContainer}>
           <Input
             inputStyle={{ color: 'black', backgroundColor: 'white', borderStyle: 'inset', borderWidth: '2px' }}
             referance={inputReferance}
             placeholder='Type here...'
             className={styles.chatInput}
             maxHeight={100}
-            multiline={true}
+            multiline={false}
             value={inputMessage}
             clear={(clear: () => void) => clearInput = clear}
             rightButtons={<Button color='white' backgroundColor='black' text='Send' onClick={addMessage} />}
             onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setInputMessage(e.target.value)}
           />
+          </div>
         </div>
         <div className={styles.docUpload}>
           {/* <form
