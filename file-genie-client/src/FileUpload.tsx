@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 
@@ -7,8 +6,8 @@ import styles from "./styles/file.module.scss";
 const fileTypes = ["JPEG", "CSV", "PDF"];
 
 export default function FileUpload() {
-  const [file, setFile] = useState(null);
-  const handleChange = (file) => {
+  const [file, setFile] = useState<any>(null);
+  const handleChange = (file: any) => {
     setFile(file);
   };
   return (
