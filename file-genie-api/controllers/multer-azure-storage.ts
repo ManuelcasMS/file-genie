@@ -2,30 +2,19 @@ import { Request } from "express";
 import { ParamsDictionary } from "express-serve-static-core";
 import { StorageEngine } from "multer";
 import { ParsedQs } from "qs";
-import { BlobServiceClient } from '@azure/storage-blob';
-import { DefaultAzureCredential } from '@azure/identity';
 import { runIndexer } from "./congnitive-search";
+import BlobStorage from "./blob-storage";
 
 export default class MulterAzureStorage implements StorageEngine{
 
-    private blobServiceClient = new BlobServiceClient(
-        `https://myfilestorage66.blob.core.windows.net`,
-        new DefaultAzureCredential()
-    );
+    private blobStorage = new BlobStorage();
 
     _handleFile = async (
         req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, 
         file: Express.Multer.File, 
         callback: (error?: any, info?: Partial<Express.Multer.File>) => void): Promise<void> =>
     {
-        const containerClient = this.blobServiceClient.getContainerClient(req.params.containerName);
-
-        if(!await containerClient.exists()){
-            containerClient.create();
-        }
-
-        const blobClient = containerClient.getBlockBlobClient(file.originalname);
-        const uploadResponse = await blobClient.uploadStream(file.stream);
+        const res = await this.blobStorage.persistBlobFromStream(req.params.containerName, file.originalname, file.stream);
         await runIndexer();
         callback({ok: true, file: file.originalname})
     }
@@ -35,14 +24,7 @@ export default class MulterAzureStorage implements StorageEngine{
         file: Express.Multer.File,
         callback: (error: Error) => void): Promise<void> => 
     {
-        const containerClient = this.blobServiceClient.getContainerClient(req.params.containerName);
-
-        if(!await containerClient.exists()){
-            containerClient.create();
-        }
-
-        const blobClient = containerClient.getBlockBlobClient(req.params.blobName);
-        blobClient.deleteIfExists();
+        const res = await this.blobStorage.deleteBlobFromContainer(req.params.containerName, file.originalname);
         callback(new Error(`failed to upload ${file.filename}.`))
     }
 
