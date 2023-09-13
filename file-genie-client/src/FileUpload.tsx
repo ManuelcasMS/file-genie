@@ -20,7 +20,7 @@ export default function FileUpload() {
     const input_file = document.querySelector('input[type="file"]')
 
     Array.from(input_file?.files).forEach((f: any) => {
-        formData.append('image[]', f)
+        formData.append('blob', f)
     })
         
     const response = await fetch(`${API_HOST_URL}/storage/container/file-genie/upload`, {
