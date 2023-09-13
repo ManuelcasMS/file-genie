@@ -20,7 +20,8 @@ router.get('/container/:containerName/blobs', async (req: express.Request, res: 
     res.send(blobs);
 })
 
-router.post('/container/:containerName/blob/:blobName/upload', upload.array("uploaded_files"), function(req, res, next){
+router.post('/container/:containerName/upload', upload.array("uploaded_files"), function(req, res, next){
+    console.log(req.params.files)
     res.send(req.params.files);
 });
 
