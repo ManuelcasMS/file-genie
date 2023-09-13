@@ -18,11 +18,18 @@ router.get('/container/:containerName/blobs', async (req: express.Request, res: 
     const containerName = req.params.containerName;
     const blobs = await blobStorage.getBlobNamesFromContainer(containerName);
     res.send(blobs);
-})
+});
 
 router.post('/container/:containerName/upload', upload.array("uploaded_files"), function(req, res, next){
     console.log(req.params.files)
     res.send(req.params.files);
+});
+
+router.delete('/container/:containerName/delete/:blobName', async (req: express.Request, res: express.Response) => {
+    const containerName = req.params.containerName;
+    const blobName = req.params.blobName;
+    const blobs = await blobStorage.deleteBlobFromContainer(containerName, blobName);
+    res.send(blobs);
 });
 
 export default router;
