@@ -3,15 +3,12 @@
  */
 import express = require('express');
 const router = express.Router();
-var bodyParser = require('body-parser');
 const { OpenAIClient, AzureKeyCredential } = require("@azure/openai");
 
 import * as dotenv from "dotenv";
 dotenv.config();
 
 const endpoint = process.env.ENDPOINT || "";
-// create application/json parser
-var jsonParser = bodyParser.json()
 
 interface ChatInfo {
   content: string;
@@ -47,7 +44,7 @@ async function test(chatInfo: ChatInfo[]) {
   return false;
 }
 
-router.post('/', jsonParser, async (req: express.Request, res: express.Response) => {
+router.post('/', async (req: express.Request, res: express.Response) => {
   const chatInfo = req.body.chatInfo as ChatInfo[];
   const resp = await test(chatInfo);
   res.send(resp);
