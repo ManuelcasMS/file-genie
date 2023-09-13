@@ -9,6 +9,7 @@ export default class BlobStorage {
     );
 
     persistBlob = async (containerName: string, blobName: string, blobContent: string) => {
+        console.log(this.blobServiceClient)
         const containerClient = this.blobServiceClient.getContainerClient(containerName);
 
         if(!await containerClient.exists()){
