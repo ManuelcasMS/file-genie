@@ -42,6 +42,17 @@
   flex-grow: 1;
 }
 
+.listUploadedFiles { 
+  max-height: 50vh;
+  overflow-y: auto;
+  margin: 1rem 1rem 1rem 1rem;
+}
+
+.uploadedFiles{ 
+  margin: 1rem 1rem 1rem 1rem;
+}
+
+
 /// Scrollbar: 
 ::-webkit-scrollbar {
   width: 9px;

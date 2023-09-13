@@ -16,7 +16,31 @@ function App() {
   const inputReferance = React.createRef()
   const [inputMessage, setInputMessage] = React.useState<string>("");
   const [chatHistory, setChatHistory] = React.useState<MessageType[]>([]);
-  const [chatInfoHistory, setchatInfoHistory] = React.useState<ChatInfo[]>([]);
+  const [chatInfoHistory, setchatInfoHistory] = React.useState<ChatInfo[]>([]);  
+  const [uploadedFilesList, setUploadedFilesList] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    getUploadedFiles();
+  }, []);
+
+  const getUploadedFiles = async () => {
+    fetch('https://web-app-file-genie-backend.azurewebsites.net/storage/container/myfiles/blobs', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(async (response) => {
+      console.log("Hellooooo 1");
+      const resp = await response.json() as string[];
+      console.log(resp);    
+      const listUploadedFiles: string[] = [];
+      resp.forEach(uploadedFile => {
+        listUploadedFiles.push(uploadedFile);
+      });
+      setUploadedFilesList([...listUploadedFiles]);
+    });
+  }
  
   const sendQuestionToBot = async () => {
     fetch('https://web-app-file-genie-backend.azurewebsites.net/query', {
@@ -128,6 +152,22 @@ function App() {
             <button type='submit'>upload</button>
           </form> */}
           <FileUpload />
+          <div className={styles.uploadedFiles}>
+            <h3>Uploaded Files</h3>
+            <div className={styles.listUploadedFiles}>
+              <ul>
+              {
+                uploadedFilesList.map((uploadedFileName, index) => {
+                  return (
+                    <li key={index}>
+                      {uploadedFileName}
+                    </li>
+                  )
+                })
+              }
+              </ul>
+            </div>
+          </div>
         </div>
       </>
   )
