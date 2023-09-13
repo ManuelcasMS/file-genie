@@ -2,11 +2,46 @@
   color: black !important;
 }
 
+::-webkit-scrollbar-corner { background: rgba(0,0,0,0.5); }
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-bar-color) var(--scroll-bar-bg-color);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--scroll-bar-bg-color);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-bar-color);
+    border-radius: 20px;
+    border: 3px solid var(--scroll-bar-bg-color);
+}
+
+.chatHistoryContainer{
+  height: 95%;
+  width: 100%;  
+  overflow-y: auto;
+  
+}
+
 .chatHistory{
   height: 90%;
+  max-height: 90%;
   width: 100%;
-  overflow-y: auto;
   flex-direction: column-reverse;
+  -webkit-box-shadow: 0 0 1px 3px #000 inset;
+  -moz-box-shadow: 0 0 1px 3px #000 inset;
+  box-shadow: 0 0 1px 3px #000 inset;
+  border-radius: 15px;
+  padding-top: 15px;
 }
 
 .wrapper{
@@ -32,10 +67,14 @@
   color: #ffffff !important;
   position: absolute; 
   bottom: 0;
-  margin: 0px 0px 10px 0px !important;
+  margin: 10px 50px 10px 0px !important;
   padding: 0px 50px 0px 0px !important;
   padding-left: 30px;
   align-items: center;
   width: 70% !important;
-  margin-right: 50px;
+
+}
+
+.chatInputContainer{
+  margin-top: 25px;
 }
