@@ -3,12 +3,16 @@ import { FileUploader } from "react-drag-drop-files";
 
 import styles from "./styles/file.module.scss";
 import { API_HOST_URL } from "./util/constants";
+import { Button, Spinner } from "@fluentui/react-components";
 
 const fileTypes = ["JPEG", "CSV", "PDF"];
-
-export default function FileUpload() {
+ export interface IFileUploadProps {
+  onUpload: () => void;
+ }
+export default function FileUpload(props: IFileUploadProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [files, setFiles] = useState<File[]>([]);
+  const [saving, setSaving] = useState<boolean>(false);
   const handleChange = (file: File[]) => {
     setFiles([...file]);
   };
@@ -21,15 +25,24 @@ export default function FileUpload() {
         formData.append('uploaded_files', f)
       }
     }
-        
-    await fetch(`${API_HOST_URL}/storage/container/myfile/upload`, {
-      method: 'POST',
-      body: formData
-    });
+    setSaving(true);
+    try {
+      await fetch(`${API_HOST_URL}/storage/container/myfiles/upload`, {
+        method: 'POST',
+        body: formData
+      });
+    } catch (error) {
+      console.log(error); 
+    } finally {
+      await props.onUpload();
+      setSaving(false);
+    }
+    
   }
 
   return (
     <div className={styles.upload}>
+      {saving ? <Spinner labelPosition="below" label="Uploading..." />: <>
       <h1>Drag & Drop Files</h1>
       <FileUploader
         multiple={true}
@@ -38,7 +51,8 @@ export default function FileUpload() {
         types={fileTypes}
         classes="target"
       />
-        <button onClick={uploadFile}>Upload</button>
+        <Button appearance="primary" onClick={uploadFile} style={{marginTop:"1rem"}}>Upload</Button>
+        </>}
     </div>
   );
 }

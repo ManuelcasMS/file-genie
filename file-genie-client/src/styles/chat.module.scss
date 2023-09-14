@@ -2,11 +2,10 @@
   color: black !important;
 }
 
-.chatHistoryContainer{
+.chatHistoryContainer {
   height: 95%;
-  width: 99%;  
+  width: 99%;
   overflow-y: auto;
-  
 }
 
 .chatHistory {
@@ -39,21 +38,22 @@
 }
 
 .docUpload {
+  display: flex;
   flex-grow: 1;
+  flex-direction: column;
 }
 
-.listUploadedFiles { 
+.listUploadedFiles {
   max-height: 50vh;
   overflow-y: auto;
   margin: 1rem 1rem 1rem 1rem;
 }
 
-.uploadedFiles{ 
+.uploadedFiles {
   margin: 1rem 1rem 1rem 1rem;
 }
 
-
-/// Scrollbar: 
+/// Scrollbar:
 ::-webkit-scrollbar {
   width: 9px;
 }
@@ -64,4 +64,13 @@
   background-color: rgba(155, 155, 155, 0.5);
   border-radius: 20px;
   border: transparent;
+}
+
+.rootContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+
+  height: 100vh;
+  width: 100vw;
 }
