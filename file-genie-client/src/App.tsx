@@ -114,7 +114,7 @@ function App() {
   }
 
   return (
-      <>
+      <div className={styles.rootContainer}>
         <div className={styles.chatBox}>
           <div className={styles.chatHistory}>    
             <div className={styles.chatHistoryContainer}>
@@ -144,7 +144,7 @@ function App() {
           </div>
         </div>
         <div className={styles.docUpload}>
-          <FileUpload />
+          <FileUpload onUpload={getUploadedFiles}/>
           <div className={styles.uploadedFiles}>
             <h3>Uploaded Files</h3>
             <div className={styles.listUploadedFiles}>
@@ -162,7 +162,7 @@ function App() {
             </div>
           </div>
         </div>
-      </>
+      </div>
   )
 }
 
